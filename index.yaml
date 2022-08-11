@@ -1,0 +1,12 @@
+apiVersion: v1
+entries:
+  library-chart:
+  - apiVersion: v2
+    created: "2022-08-11T18:34:57.0939101+03:00"
+    digest: 81b41468ff0673494736c672036ebfd99c7de9ecab6d421245321eb2eba23686
+    name: library-chart
+    type: library
+    urls:
+    - https://fox-md.github.io/helm-library/library-chart-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-08-11T18:34:57.0929095+03:00"
