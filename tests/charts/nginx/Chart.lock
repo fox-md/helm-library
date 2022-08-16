@@ -1,0 +1,9 @@
+dependencies:
+- name: library-chart
+  repository: https://fox-md.github.io/helm-library/
+  version: 1.0.1
+- name: L2
+  repository: file://../L2
+  version: 0.1.0
+digest: sha256:3f0d24acae91e129cdc7cbf85102178f1dbd8f3da2a47c8bcb776fb6a33f6732
+generated: "2022-08-14T21:56:04.4832691+03:00"

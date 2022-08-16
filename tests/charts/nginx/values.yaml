@@ -1,0 +1,18 @@
+# Default values for nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicas: 2
+
+appPort: 80
+
+image:
+  name: nginx
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 80
+
+data:
+  name: "value"

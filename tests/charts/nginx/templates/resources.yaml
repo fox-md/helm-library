@@ -1,0 +1,12 @@
+{{ include "library-chart.deployment" . }}
+---
+{{ include "library-chart.service" . }}
+---
+{{ include "library-chart.configmap" (list . "chart.configmap") }}
+---
+{{- define "chart.configmap" -}}
+data:
+  {{- range $k, $v := .Values.data }}
+  {{ $k }}: {{ $v }}
+  {{- end }}
+{{- end -}}
