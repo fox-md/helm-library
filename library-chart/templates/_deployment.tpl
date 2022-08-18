@@ -31,7 +31,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchLabels:
                 {{- include "library-chart.labels" . | indent 16 }}

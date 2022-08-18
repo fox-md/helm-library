@@ -2,7 +2,15 @@ apiVersion: v1
 entries:
   library-chart:
   - apiVersion: v2
-    created: "2022-08-18T10:40:23.839685+03:00"
+    created: "2022-08-18T13:04:39.8356829+03:00"
+    digest: 4db1d1767071f13576e4b16ebb8846352b9b8e156cd12aa7880a7405037280fd
+    name: library-chart
+    type: library
+    urls:
+    - https://fox-md.github.io/helm-library/library-chart-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    created: "2022-08-18T13:04:39.8340205+03:00"
     digest: e483f206f21aab4af5a54977395baf9084a72e61958d1fc25d7940ffa61ab67a
     name: library-chart
     type: library
@@ -10,7 +18,7 @@ entries:
     - https://fox-md.github.io/helm-library/library-chart-1.0.2.tgz
     version: 1.0.2
   - apiVersion: v2
-    created: "2022-08-18T10:40:23.8346864+03:00"
+    created: "2022-08-18T13:04:39.81979+03:00"
     digest: 9ca6e23cd3c0aa19179a13b0a5c92939d839e16deb7e73939e447eb4e6957618
     name: library-chart
     type: library
@@ -18,11 +26,11 @@ entries:
     - https://fox-md.github.io/helm-library/library-chart-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v2
-    created: "2022-08-18T10:40:23.8292174+03:00"
+    created: "2022-08-18T13:04:39.8078898+03:00"
     digest: 81b41468ff0673494736c672036ebfd99c7de9ecab6d421245321eb2eba23686
     name: library-chart
     type: library
     urls:
     - https://fox-md.github.io/helm-library/library-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-18T10:40:23.8212083+03:00"
+generated: "2022-08-18T13:04:39.792532+03:00"
