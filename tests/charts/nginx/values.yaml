@@ -8,7 +8,7 @@ appPort: 80
 
 image:
   name: nginx
-  tag: latest
+  tag: stable
 
 service:
   type: ClusterIP
@@ -16,3 +16,41 @@ service:
 
 data:
   name: "value"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+podSecurityContext:
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  privileged: false
+  allowPrivilegeEscalation: false
+  runAsUser: 101
+  capabilities:
+    drop:
+      - ALL
+
+volumeMounts:
+  - name: var-cache-nginx
+    mountPath: /var/cache/nginx
+    readOnly: false
+  - name: var-run
+    mountPath: /var/run
+    readOnly: false
+
+volumes:
+  - name: var-cache-nginx
+    emptyDir:
+  - name: var-run
+    emptyDir:
+
+nodeSelector: {}
+
+nodeName: ""
+
+affinity: {}

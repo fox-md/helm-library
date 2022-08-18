@@ -1,0 +1,27 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+apiVersion: v2
+name: library-chart
+type: library
+version: 1.0.2
+
+...
+files:
+  library-chart-1.0.2.tgz: sha256:e483f206f21aab4af5a54977395baf9084a72e61958d1fc25d7940ffa61ab67a
+-----BEGIN PGP SIGNATURE-----
+
+wsFcBAEBCgAQBQJi/ensCRDbolg3h6XjgwAArW4QAHIJyaCVlp7eCQiOJIXPsAj0
+8ypQbu0ykGl/m0FA8+s7Iv0Rqb1hft/fley/blnco5BCvmcDRZG8wsJS5cf88XN9
+JCbCkFA3YSm787qc5oI1bRKkj0MgpeMEe3uW8IBLyZuTCovOZ+8vCnn0CvO5i8Uh
+lvTs9mZkYjQ82Q2gghD6WxQlKS8Q1SSkjlo5fO0GH8uTon/zH8RRSu7yueuWBOuV
+xcKnx79z5tsp1cv0OVe6NE6r4C/GiOinV3s+j/MNLXfDK9H0HcfGIkprDMgh8I1v
+IjAGoavXYvNBSkWfOwQvsG3vxK9hb3UmbneDpImPkgZBGWK8YHcqVuvwsfaXUbGn
+D6RCNcnEoNwWnun+fKpNsR1rYamSL5SrskK2SzDAw9/s3mqAO+rQVTOKOzy07sU2
+H4TMOxjgMkrmPj//JLThw/oc/aJJxQMxsactGDJopC7Y6mqY6+0yvjNyCnNL5c8X
+WtHXoG8UsKRC6533yKpS1DDTlZjKeOL2CgRKjWiENgUfLONMNSAilPGfHRdkGnRH
+YoOL2bupLHLz+VxWh51kyFHF4NRWRWvPuKwiNttb+A8MdQ4WPNlJ6ve/i3llxhcx
++xMwG1XGeINLcdcpTFgAw8iDuzHLEACUtm0Ta4k6A5JAoJ/TsvqX5tupAUA3ADfL
+vDomyUMxJZoHSJAp2B8q
+=wWGF
+-----END PGP SIGNATURE-----
