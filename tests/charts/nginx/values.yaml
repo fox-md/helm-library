@@ -1,18 +1,27 @@
-# Default values for nginx.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
 
 replicas: 2
 
-appPort: 80
+app:
+  port: &appPort 8080
+  protocol: &appProto "TCP"
 
-image:
-  name: nginx
-  tag: stable
+container:
+  image:
+    name: nginx
+    tag: stable
+  ports:
+  - containerPort: *appPort
+    name: http
+    protocol: *appProto
 
 service:
   type: ClusterIP
   port: 80
+  targetPort: *appPort
+  protocol: *appProto
+
+configmap:
+  name: &configmapName nginx-default-conf
 
 data:
   name: "value"
@@ -22,8 +31,8 @@ resources:
     cpu: 100m
     memory: 128Mi
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 50m
+    memory: 64Mi
 
 podSecurityContext:
   runAsNonRoot: true
@@ -34,6 +43,10 @@ podSecurityContext:
   capabilities:
     drop:
       - ALL
+    add:
+      - CHOWN
+      - SETGID
+      - SETUID
 
 volumeMounts:
   - name: var-cache-nginx
@@ -42,12 +55,19 @@ volumeMounts:
   - name: var-run
     mountPath: /var/run
     readOnly: false
+  - mountPath: /etc/nginx/conf.d/default.conf
+    name: default-conf
+    readOnly: true
+    subPath: default.conf
 
 volumes:
   - name: var-cache-nginx
     emptyDir:
   - name: var-run
     emptyDir:
+  - name: default-conf
+    configMap:
+      name: *configmapName
 
 nodeSelector: {}
 

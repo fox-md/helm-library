@@ -14,7 +14,7 @@ spec:
     - name: wget
       image: busybox:stable
       command: ['wget']
-      args: ['-O', '/tmp/index.html', '{{ include "nginx.fullname" . }}:{{ .Values.service.port }}']
+      args: ['-O', '/tmp/index.html', '{{ .Release.Name }}:{{ .Values.service.port }}']
       resources:
         limits:
           cpu: 50m

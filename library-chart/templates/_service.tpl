@@ -11,8 +11,8 @@ spec:
   type: {{ default "ClusterIP" .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.appPort }}
-      protocol: TCP
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: {{ .Values.service.protocol }}
       name: http
       {{- if and (eq "NodePort" .Values.service.type) .Values.service.nodePort }}
       nodePort: {{ .Values.service.nodePort }}

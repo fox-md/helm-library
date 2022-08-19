@@ -17,7 +17,9 @@ spec:
     spec:
       containers:
         - name: {{ .Release.Name }}
-          image: {{ required "value 'image.name' is required" .Values.image.name }}:{{ required "value 'image.tag' is required" .Values.image.tag }}
+          image: {{ required "value 'container.image.name' is required" .Values.container.image.name }}:{{ required "value 'container.image.tag' is required" .Values.container.image.tag }}
+          ports:
+            {{- toYaml .Values.container.ports | nindent 10 }}
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           volumeMounts:
@@ -32,10 +34,12 @@ spec:
         {{- end }}
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                {{- include "library-chart.labels" . | indent 16 }}
-            topologyKey: "kubernetes.io/hostname"
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                  {{- include "library-chart.labels" . | indent 20 }}
+                topologyKey: "kubernetes.io/hostname"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
