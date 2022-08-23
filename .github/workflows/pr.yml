@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'tests/charts/**'
+      - '.github/workflow/pr.yml'
 
 jobs:
   validate-chart:
