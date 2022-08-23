@@ -6,54 +6,74 @@ on:
       - 'tests/charts/**'
 
 jobs:
-  lint-chart:
+  validate-chart:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Run chart-testing (lint)
-        uses: helm/chart-testing-action@main
-        with:
-          command: lint
-          config: .github/ct.yaml
-
-  kubeval-chart:
-    runs-on: ubuntu-latest
-    needs:
-      - lint-chart
     strategy:
       matrix:
         k8s:
-          - v1.16.8
-          - v1.17.4
+          - v1.24.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
-      - name: Run kubeval
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Validate
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
-        run: .github/kubeval.sh
+          KUBEVAL_VERSION: "0.16.0"
+          KUBELINTER_VERSION: "0.4.0"
+        run: |
+          CHART_DIRS="$(git diff --name-only origin/master origin/${GITHUB_HEAD_REF} | grep 'tests/charts' | egrep 'yaml|yml' | cut -d '/' -f3 | sort -u)"
+          SCHEMA_LOCATION="https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/"
 
-  install-chart:
+          echo "Download kubeval"
+          curl --silent --show-error --fail --location --output /tmp/kubeval.tar.gz https://github.com/instrumenta/kubeval/releases/download/"${KUBEVAL_VERSION}"/kubeval-linux-amd64.tar.gz
+          echo "Extract kubeval"
+          tar -xf /tmp/kubeval.tar.gz kubeval
+
+          echo "Download kube-linter"
+          curl --silent --show-error --fail --location --output /tmp/kube-linter-linux.tar.gz https://github.com/stackrox/kube-linter/releases/download/"${KUBELINTER_VERSION}"/kube-linter-linux.tar.gz
+          echo "Extract kube-linter"
+          tar -xf /tmp/kube-linter-linux.tar.gz kube-linter
+
+          echo "Validate charts"
+          for CHART_DIR in ${CHART_DIRS}; do
+            echo "Validating chart '${CHART_DIR}'"
+            helm dependency update "tests/charts/${CHART_DIR}"
+            helm lint "tests/charts/${CHART_DIR}"
+            helm template "tests/charts/${CHART_DIR}" | ./kubeval --strict --ignore-missing-schemas --kubernetes-version "${KUBERNETES_VERSION#v}" --schema-location "${SCHEMA_LOCATION}"
+            helm template "tests/charts/${CHART_DIR}" > all.yaml && ./kube-linter lint all.yaml
+          done
+
+  test-chart:
     name: install-chart
     runs-on: ubuntu-latest
     needs:
-      - lint-chart
-      - kubeval-chart
+      - validate-chart
     strategy:
       matrix:
         k8s:
-          - v1.16.4
-          - v1.17.2
+          - v1.24.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Create kind ${{ matrix.k8s }} cluster
         uses: helm/kind-action@main
         with:
           node_image: kindest/node:${{ matrix.k8s }}
-      - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@main
-        with:
-          command: install
-          config: .github/ct.yaml
+      - name: Deploy chart
+        env:
+          KUBERNETES_VERSION: ${{ matrix.k8s }}
+        run: |
+          kubectl config set-context kind-chart-testing
+
+          echo "Deploy charts"
+          CHART_DIRS="$(git diff --name-only origin/master origin/${GITHUB_HEAD_REF} | grep 'tests/charts' | egrep 'yaml|yml' | cut -d '/' -f3 | sort -u)"
+          for CHART_DIR in ${CHART_DIRS}; do
+            echo "Validating chart '${CHART_DIR}'"
+            helm dependency update "tests/charts/${CHART_DIR}"
+            helm install ${CHART_DIR} "tests/charts/${CHART_DIR}" --wait --timeout 90s --debug
+            helm test ${CHART_DIR}
+          done
