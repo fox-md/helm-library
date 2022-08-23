@@ -1,0 +1,15 @@
+name: 'Download kubeval'
+description: 'Download kubeval'
+inputs:
+  version:
+    description: 'kubeval version'
+    required: true
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+          echo "Download kubeval"
+          curl --silent --show-error --fail --location --output /tmp/kubeval.tar.gz https://github.com/instrumenta/kubeval/releases/download/${{inputs.version}}/kubeval-linux-amd64.tar.gz
+          echo "Extract kubeval"
+          tar -xf /tmp/kubeval.tar.gz -C /usr/local/bin/
+      shell: bash

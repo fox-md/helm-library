@@ -1,0 +1,15 @@
+name: 'Download kube-linter'
+description: 'Download kube-linter'
+inputs:
+  version:
+    description: 'kube-linter version'
+    required: true
+runs:
+  using: "composite"
+  steps: 
+    - run: |
+          echo "Download kube-linter"
+          curl --silent --show-error --fail --location --output /tmp/kube-linter-linux.tar.gz https://github.com/stackrox/kube-linter/releases/download/${{inputs.version}}/kube-linter-linux.tar.gz
+          echo "Extract kube-linter"
+          tar -xf /tmp/kube-linter-linux.tar.gz -C /usr/local/bin/
+      shell: bash
