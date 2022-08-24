@@ -24,11 +24,11 @@ jobs:
         with:
           fetch-depth: 0
       - id: kubeval
-        uses: fox-md/helm-library/.github/compositeactions/kubeval@feature/add-v1.23.6
+        uses: fox-md/helm-library/.github/compositeactions/kubeval@master
         with:
           version: "$KUBEVAL_VERSION"
       - id: kube-linter
-        uses: fox-md/helm-library/.github/compositeactions/kube-linter@feature/add-v1.23.6
+        uses: fox-md/helm-library/.github/compositeactions/kube-linter@master
         with:
           version: "$KUBELINTER_VERSION"
       - name: Validate
