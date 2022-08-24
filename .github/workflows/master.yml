@@ -3,12 +3,10 @@ name: Create chart
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Chart patch version'     
+      chart-version:
+        description: 'Chart version'     
         required: true
-
-env:   
-  CHART_VERSION: "1.0"
+        default: "1.0"
 
 jobs:
   create-chart:
@@ -26,7 +24,7 @@ jobs:
       - name: Sign chart
         run: |
           gpg --export-secret-keys > ~/.gnupg/secring.gpg
-          helm package --version $CHART_VERSION.${{inputs.version}} --sign --key agu4096 --keyring ~/.gnupg/secring.gpg ./library-chart
+          helm package --version ${{inputs.chart-version}}.$GITHUB_RUN_NUMBER --sign --key agu4096 --keyring ~/.gnupg/secring.gpg ./library-chart
           helm repo index --url https://fox-md.github.io/helm-library/ --merge index.yaml .
       
       - name: Push new chart to git
