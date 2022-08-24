@@ -2,7 +2,15 @@ apiVersion: v1
 entries:
   library-chart:
   - apiVersion: v2
-    created: "2022-08-19T13:38:03.1462515+03:00"
+    created: "2022-08-24T14:06:13.642021654Z"
+    digest: 40359e3c902a096332bab3e8fcb8b2f083c718825054e95a31be30e17c58c211
+    name: library-chart
+    type: library
+    urls:
+    - https://fox-md.github.io/helm-library/library-chart-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
+    created: "2022-08-24T14:06:13.641864856Z"
     digest: af8e871c722bd1fd1ba46a0b11762081ac77e67e0a2399317e4bafddfe98815b
     name: library-chart
     type: library
@@ -10,7 +18,7 @@ entries:
     - https://fox-md.github.io/helm-library/library-chart-1.0.4.tgz
     version: 1.0.4
   - apiVersion: v2
-    created: "2022-08-19T13:38:03.1460355+03:00"
+    created: "2022-08-24T14:06:13.641704757Z"
     digest: 4db1d1767071f13576e4b16ebb8846352b9b8e156cd12aa7880a7405037280fd
     name: library-chart
     type: library
@@ -18,7 +26,7 @@ entries:
     - https://fox-md.github.io/helm-library/library-chart-1.0.3.tgz
     version: 1.0.3
   - apiVersion: v2
-    created: "2022-08-19T13:38:03.1393909+03:00"
+    created: "2022-08-24T14:06:13.641528259Z"
     digest: e483f206f21aab4af5a54977395baf9084a72e61958d1fc25d7940ffa61ab67a
     name: library-chart
     type: library
@@ -26,7 +34,7 @@ entries:
     - https://fox-md.github.io/helm-library/library-chart-1.0.2.tgz
     version: 1.0.2
   - apiVersion: v2
-    created: "2022-08-19T13:38:03.1332028+03:00"
+    created: "2022-08-24T14:06:13.639814775Z"
     digest: 9ca6e23cd3c0aa19179a13b0a5c92939d839e16deb7e73939e447eb4e6957618
     name: library-chart
     type: library
@@ -34,11 +42,11 @@ entries:
     - https://fox-md.github.io/helm-library/library-chart-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v2
-    created: "2022-08-19T13:38:03.1279229+03:00"
+    created: "2022-08-24T14:06:13.639545277Z"
     digest: 81b41468ff0673494736c672036ebfd99c7de9ecab6d421245321eb2eba23686
     name: library-chart
     type: library
     urls:
     - https://fox-md.github.io/helm-library/library-chart-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-19T13:38:03.1217356+03:00"
+generated: "2022-08-24T14:06:13.638948083Z"
