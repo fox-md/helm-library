@@ -1,0 +1,40 @@
+name: Create chart
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Chart patch version'     
+        required: true
+
+env:   
+  CHART_VERSION: "1.0"
+
+jobs:
+  create-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v1
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
+      - name: Sign chart
+        run: |
+          gpg --export-secret-keys > ~/.gnupg/secring.gpg
+          helm package --version $CHART_VERSION.${{inputs.version}} --sign --key agu4096 --keyring ~/.gnupg/secring.gpg ./library-chart
+          helm repo index --url https://fox-md.github.io/helm-library/ --merge index.yaml .
+      
+      - name: Push new chart to git
+        run: |
+          git config --global user.name 'G'
+          git config --global user.email 'fox@home.md'
+          git add library-chart-*.tgz.prov
+          git add library-chart-*.tgz
+          git add index.yaml
+          git commit -m "Added chart v$CHART_VERSION.${{inputs.version}}"
+          git push
